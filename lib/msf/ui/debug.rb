@@ -75,10 +75,15 @@ module Msf
 
       end
 
-      def self.history
+      def self.history(passed_total=nil)
 
         end_pos = Readline::HISTORY.length - 1
-        start_pos = end_pos > COMMAND_HISTORY_TOTAL ? end_pos - (COMMAND_HISTORY_TOTAL - 1) : 0
+
+        if passed_total && passed_total.to_i > 0
+          start_pos = end_pos > passed_total ? end_pos - (passed_total - 1) : 0
+        else
+          start_pos = end_pos > COMMAND_HISTORY_TOTAL ? end_pos - (COMMAND_HISTORY_TOTAL - 1) : 0
+        end
 
         commands = ''
         while start_pos <= end_pos
@@ -95,7 +100,9 @@ module Msf
 
       end
 
-      def self.errors
+      def self.errors(passed_total=nil)
+        require 'pry'
+        binding.pry
 
         errors = File.read(File.join(Msf::Config.log_directory, 'error.log'))
 
@@ -138,7 +145,12 @@ module Msf
         # Scan returns each error as a single item array
         res.flatten!
 
-        errors_str = concat_str_array_from_last_idx(res, ERROR_TOTAL)
+        if passed_total && passed_total.to_i > 0
+          errors_str = concat_str_array_from_last_idx(res, passed_total)
+        else
+          errors_str = concat_str_array_from_last_idx(res, ERROR_TOTAL)
+        end
+
         build_section('Errors',
                       'The following errors occurred before the issue occurred:',
                       errors_str)
@@ -147,11 +159,15 @@ module Msf
 
       end
 
-      def self.logs
+      def self.logs(passed_total=nil)
 
         log_lines = File.readlines(File.join(Msf::Config.log_directory, 'framework.log'))
 
-        logs_str = concat_str_array_from_last_idx(log_lines, LOG_LINE_TOTAL)
+        if passed_total && passed_total.to_i > 0
+          logs_str = concat_str_array_from_last_idx(log_lines, passed_total)
+        else
+          logs_str = concat_str_array_from_last_idx(log_lines, LOG_LINE_TOTAL)
+        end
 
         build_section('Logs',
                       'The following logs were recorded before the issue occurred:',

@@ -50,9 +50,19 @@ module Rex
 
                 param = nil
 
+                # if mandatory arg
                 if val[0]
                   param = args[idx + 1]
                   skip_next = true
+                end
+
+                # if optional arg
+                if val[2]
+                  # If there is another arg and it isn't a flag
+                  if !args[idx + 1].nil? && !fmt.key?(args[idx + 1])
+                    param = args[idx + 1]
+                    skip_next = true
+                  end
                 end
 
                 yield fmtspec, idx, param

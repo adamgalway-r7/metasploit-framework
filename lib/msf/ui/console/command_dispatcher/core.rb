@@ -73,12 +73,12 @@ class Core
     "-h" => [ false, "Help banner."                                   ])
 
   @@debug_opts = Rex::Parser::Arguments.new(
-    "-h" => [ false, "Help banner."                                   ],
-    "-d" => [ false, "Display the Datastore Information."             ],
-    "-H" => [ false, "Display command history."                       ],
-    "-e" => [ false, "Display the most recent Error and Stack Trace." ],
-    "-l" => [ false, "Display the most recent logs."                  ],
-    "-v" => [ false, "Display versions and install info."             ])
+    "-h" => [ false, "Help banner."                                         ],
+    "-d" => [ false, "Display the Datastore Information."                   ],
+    "-H" => [ false, "Display command history.", true                       ],
+    "-e" => [ false, "Display the most recent Error and Stack Trace.", true ],
+    "-l" => [ false, "Display the most recent logs.", true                  ],
+    "-v" => [ false, "Display versions and install info."                   ])
 
   @@connect_opts = Rex::Parser::Arguments.new(
     "-h" => [ false, "Help banner."                                   ],
@@ -323,16 +323,16 @@ class Core
       cmd_debug_help
     else
       output = ""
-      @@debug_opts.parse(args) do |opt|
+      @@debug_opts.parse(args) do |opt, idx, param|
         case opt
         when '-d'
           output << Debug.datastore(framework, driver)
         when '-H'
-          output << Debug.history
+          output << (param.nil? ? Debug.history : Debug.history(param.to_i))
         when '-e'
-          output << Debug.errors
+          output << (param.nil? ? Debug.errors : Debug.errors(param.to_i))
         when '-l'
-          output << Debug.logs
+          output << (param.nil? ? Debug.logs : Debug.logs(param.to_i))
         when '-v'
           output << Debug.versions(framework)
         end
