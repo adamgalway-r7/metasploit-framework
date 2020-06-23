@@ -101,9 +101,6 @@ module Msf
       end
 
       def self.errors(passed_total=nil)
-        require 'pry'
-        binding.pry
-
         errors = File.read(File.join(Msf::Config.log_directory, 'error.log'))
 
         # Returns any error logs in framework.log file as an array

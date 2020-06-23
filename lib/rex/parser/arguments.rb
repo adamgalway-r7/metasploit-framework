@@ -54,10 +54,7 @@ module Rex
                 if val[0]
                   param = args[idx + 1]
                   skip_next = true
-                end
-
-                # if optional arg
-                if val[2]
+                elsif val[2]  # if optional arg
                   # If there is another arg and it isn't a flag
                   if !args[idx + 1].nil? && !fmt.key?(args[idx + 1])
                     param = args[idx + 1]
@@ -82,7 +79,15 @@ module Rex
 
         fmt.sort.each do |entry|
           fmtspec, val = entry
-          opt = val[0] ? " <opt>  " : "        "
+
+          if val[0]
+            opt = ' opt    '
+          elsif val[2]
+            opt = ' [opt]  '
+          else
+            opt = '        '
+          end
+
           txt << "    #{fmtspec.ljust(longest.length)}#{opt}#{val[1]}"
         end
 
