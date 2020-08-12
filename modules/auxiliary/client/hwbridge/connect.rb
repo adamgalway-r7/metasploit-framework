@@ -152,7 +152,6 @@ class MetasploitModule < Msf::Auxiliary
   def run
     print_status "Attempting to connect to #{datastore['RHOST']}..."
     self.get_status()
-    unless @last_access.nil?
       sess = Msf::Sessions::HWBridge.new(self)
       sess.set_from_exploit(self)
 
@@ -162,9 +161,6 @@ class MetasploitModule < Msf::Auxiliary
       load_custom_methods(sess)
       print_status "HW Specialty: #{self.hw_specialty}  Capabilities: #{self.hw_capabilities}"
       print_disclaimer
-    else
-      print_error "Could not connect to API"
-    end
   end
 
   attr_reader :hw_specialty

@@ -124,6 +124,7 @@ class Core
       "repeat"     => "Repeat a list of commands",
       "route"      => "Route traffic through a session",
       "save"       => "Saves the active datastores",
+      "smb"        => "Starts a SMB subshell",
       "sessions"   => "Dump session listings and display information about sessions",
       "set"        => "Sets a context-specific variable to a value",
       "setg"       => "Sets a global variable to a value",
