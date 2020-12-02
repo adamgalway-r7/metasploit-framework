@@ -108,7 +108,7 @@ module Auxiliary::Login
 
   def command_echo?(cmd)
     recvn = @recvd.gsub(/^(\s*#{cmd}\r?\n\s*|\s*\*+\s*)/, '')
-    if(recvn != @recvd)
+    if(recvn != @recv_alld)
       @recvd = recvn
       return true
     end

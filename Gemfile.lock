@@ -71,7 +71,7 @@ PATH
       rex-text
       rex-zip
       ruby-macho
-      ruby_smb (~> 2.0)
+      ruby_smb
       rubyntlm
       rubyzip
       sinatra
@@ -84,6 +84,21 @@ PATH
       windows_error
       xdr
       xmlrpc
+
+PATH
+  remote: /Users/Shared/Relocated_Items/Security/rapid7/ruby_smb
+  specs:
+    ruby_smb (2.0.8)
+      bindata
+      openssl-ccm
+      openssl-cmac
+      rubyntlm
+      windows_error
+
+PATH
+  remote: /Users/Shared/Relocated_Items/Security/rapid7/rubyntlm
+  specs:
+    rubyntlm (0.6.3)
 
 GEM
   remote: https://rubygems.org/
@@ -386,13 +401,6 @@ GEM
     ruby-progressbar (1.10.1)
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.2)
-    ruby_smb (2.0.7)
-      bindata
-      openssl-ccm
-      openssl-cmac
-      rubyntlm
-      windows_error
-    rubyntlm (0.6.2)
     rubyzip (2.3.0)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
@@ -456,6 +464,8 @@ DEPENDENCIES
   rspec-rerun
   rubocop
   ruby-prof
+  ruby_smb!
+  rubyntlm!
   simplecov (= 0.18.2)
   sqlite3 (~> 1.3.0)
   swagger-blocks

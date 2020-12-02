@@ -48,3 +48,6 @@ group :test do
   # Manipulate Time.now in specs
   gem 'timecop'
 end
+
+gem 'ruby_smb', path:'/Users/Shared/Relocated_Items/Security/rapid7/ruby_smb' 
+gem 'rubyntlm', path:'/Users/Shared/Relocated_Items/Security/rapid7/rubyntlm' 
